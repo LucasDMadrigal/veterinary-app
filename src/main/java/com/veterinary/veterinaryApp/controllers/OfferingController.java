@@ -71,24 +71,28 @@ public class OfferingController {
 	}
 	
 	
-	@PutMapping("/update-price")
-	public ResponseEntity<?> updateServicePrice(@Valid @RequestBody UpdateOfferingDTO updateOffering) {
+	@PutMapping("/update")
+	public ResponseEntity<?> updateOffering(@Valid @RequestBody UpdateOfferingDTO updateOffering) {
 		try {
 			long offeringId = updateOffering.id();
 			Offering existingService = offeringService.getOfferingById(offeringId);
-			
+
 			if (existingService == null) {
-				return new ResponseEntity<>("No Service was found with ID: " + offeringId, HttpStatus.NOT_FOUND);
+				return new ResponseEntity<>("Service not found", HttpStatus.NOT_FOUND);
 			}
-			
-			double newPrice = updateOffering.price();
-			
-			offeringService.updatePrice(existingService, newPrice);
-			
-			return new ResponseEntity<>("Price updated for service: " + existingService.getName(), HttpStatus.OK);
+
+			existingService.setPrice(updateOffering.price());
+			existingService.setTimeSlots(updateOffering.timeSlots());
+			existingService.setDescription(updateOffering.description());
+			existingService.setName(updateOffering.name());
+			existingService.setImage(updateOffering.image());
+
+			offeringService.updateOffering(existingService);
+
+			return new ResponseEntity<>("Offering updated for service: " + existingService.getName(), HttpStatus.OK);
 		} catch (Exception e) {
 			// Manejo genérico de excepciones
-			return new ResponseEntity<>("Error updating service price: " + e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+			return new ResponseEntity<>("Error updating Offering: " + e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
 }

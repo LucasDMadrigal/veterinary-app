@@ -2,6 +2,7 @@ package com.veterinary.veterinaryApp.DTOs;
 
 import com.veterinary.veterinaryApp.models.Appointment;
 import com.veterinary.veterinaryApp.models.Offering;
+import com.veterinary.veterinaryApp.models.TimeSlot;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -20,14 +21,10 @@ public class OfferingDTO {
 	
 	private String image;
 	
-	private List<String> daysOfService;
-	
-	private List<String> hoursOfService;
-	
 	private List<LocalDateTime> appointments; // Lista de citas de la oferta
 	
-	private Set<AvailableSlotsDTO> availableSlots;
-	
+//	private Set<AvailableSlotsDTO> availableSlots;
+	private List<TimeSlotDTO> timeSlots;
 	
 	public OfferingDTO(Offering offering) {
 		this.id = offering.getId();
@@ -35,12 +32,10 @@ public class OfferingDTO {
 		this.description = offering.getDescription();
 		this.price = offering.getPrice();
 		this.appointments = offering.getAppointments().stream().map(Appointment::getDateTime).toList(); // tengo mis dudas, creeería que hay que pasar los objetos completos de appointments para
-		this.availableSlots = offering.getAvailableSlots()
-						.stream()
-						.map(AvailableSlotsDTO::new)
-						.collect(Collectors.toSet());
-		this.daysOfService = offering.getDaysOfService();
-		this.hoursOfService = offering.getHoursOfService();
+		this.timeSlots = offering.getTimeSlots()
+				.stream()
+				.map(timeSlot -> new TimeSlotDTO(timeSlot))
+				.toList();
 		this.image = offering.getImage();
 	}
 	
@@ -59,22 +54,18 @@ public class OfferingDTO {
 	public double getPrice() {
 		return price;
 	}
-	
-	public List<String> getDaysOfService() {
-		return daysOfService;
+
+	public List<TimeSlotDTO> getTimeSlots() {
+		return timeSlots;
 	}
-	
-	public List<String> getHoursOfService() {
-		return hoursOfService;
-	}
-	
+
 	public List<LocalDateTime> getAppointments() {
 		return appointments;
 	}
 	
-	public Set<AvailableSlotsDTO> getAvailableSlots() {
-		return availableSlots;
-	}
+//	public Set<AvailableSlotsDTO> getAvailableSlots() {
+//		return availableSlots;
+//	}
 	
 	public String getImage() {
 		return image;

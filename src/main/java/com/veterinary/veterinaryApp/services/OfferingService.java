@@ -19,7 +19,7 @@ public interface OfferingService {
 
     double calculatePrice(AnimalSize petSize, double baseRate);
 
-    void updatePrice(Offering offering, double newPrice);
+    void updateOffering(Offering offering);
 
     Offering createOffering(NewOfferingDTO newOffering);
     

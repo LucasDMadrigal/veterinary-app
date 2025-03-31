@@ -2,7 +2,6 @@ package com.veterinary.veterinaryApp;
 
 import com.veterinary.veterinaryApp.Repositories.*;
 import com.veterinary.veterinaryApp.models.*;
-import com.veterinary.veterinaryApp.services.AvailableSlotsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -15,7 +14,6 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 import static com.veterinary.veterinaryApp.utils.Utils.fiveDigits;
@@ -36,7 +34,7 @@ public class VeterinaryAppApplication {
             ClientRepository clientRepository, AccountRepository accountRepository,
             PetRepository petRepository, VeterinarianRepository veterinarianRepository,
             OfferingRepository offeringRepository, AppointmentRepository appointmentRepository,
-            InvoiceRepository invoiceRepository, AvailableSlotsRepository availableSlotsRepository
+            InvoiceRepository invoiceRepository
     ) {
         return (args) -> {
 //
@@ -77,7 +75,7 @@ public class VeterinaryAppApplication {
             Pet pet4 = new Pet("Coco", "1 año", "Perro", "Pastor Aleman", AnimalSize.SMALL, "blind dog", "https://www.purina.es/sites/default/files/styles/ttt_image_510/public/2024-02/sitesdefaultfilesstylessquare_medium_440x440public2022-07German20Shepherd20Dog1.jpg?itok=7Xg-W19h");
             Pet pet5 = new Pet("Tomate", "6 meses", "Perro", "Pastor Aleman", AnimalSize.LARGE, "healthy dog", "https://www.tiendanimal.es/articulos/wp-content/uploads/2017/11/Como-educar-y-entrenar-a-un-pastor-aleman.jpg");
             Pet pet6 = new Pet("Firulais", "15 años", "Perro", "Golden Retriever", AnimalSize.BIGGER, "very old dog", "https://www.clarin.com/2020/06/24/VXEcQ3tkG_720x0__1.jpg");
-            
+
             userAdmin.addPet(pet1);
             lucas.addPet(pet2);
             pedro.addPet(pet3);
@@ -93,53 +91,78 @@ public class VeterinaryAppApplication {
             petRepository.save(pet6);
 
             // Creación de Servicios
-            List<String> daysOfService = Arrays.asList("Monday", "Tuesday", "Wednesday", "Thursday", "Friday");
-            List<String> hoursOfService = Arrays.asList("09:00-12:00", "13:00-17:00");
+//            List<String> daysOfService = Arrays.asList("Monday", "Tuesday", "Wednesday", "Thursday", "Friday");
+//            List<String> hoursOfService = Arrays.asList("09:00-12:00", "13:00-17:00");
 
+            List<TimeSlot> generalEnquirySlots = List.of(
+                    new TimeSlot(Days.MONDAY, "09:00 AM"),
+                    new TimeSlot(Days.MONDAY, "11:00 AM"),
+                    new TimeSlot(Days.WEDNESDAY, "02:00 PM")
+            );
+
+            List<TimeSlot> vaccinationSlots = List.of(
+                    new TimeSlot(Days.TUESDAY, "10:00 AM"),
+                    new TimeSlot(Days.TUESDAY, "01:00 PM"),
+                    new TimeSlot(Days.THURSDAY, "03:00 PM")
+            );
+
+            List<TimeSlot> surgerySlots = List.of(
+                    new TimeSlot(Days.FRIDAY, "08:00 AM"),
+                    new TimeSlot(Days.FRIDAY, "12:00 PM"),
+                    new TimeSlot(Days.SATURDAY, "09:00 AM")
+            );
+
+            List<TimeSlot> canineHairdressingSlots = List.of(
+                    new TimeSlot(Days.WEDNESDAY, "10:00 AM"),
+                    new TimeSlot(Days.WEDNESDAY, "04:00 PM"),
+                    new TimeSlot(Days.SATURDAY, "02:00 PM")
+            );
+
+            List<TimeSlot> dewormingSlots = List.of(
+                    new TimeSlot(Days.THURSDAY, "09:00 AM"),
+                    new TimeSlot(Days.THURSDAY, "11:00 AM"),
+                    new TimeSlot(Days.SATURDAY, "03:00 PM")
+            );
             // Instancias de Offering
             Offering generalEnquiry = new Offering(
                     "General Enquiry",
                     "General consultation for check-ups and medical examinations of your pets.",
                     50.00,
-                    daysOfService,
-                    hoursOfService,
-                    "https://img.freepik.com/free-photo/veterinarian-checking-dog-medium-shot_23-2149143871.jpg"
+                    "https://img.freepik.com/free-photo/veterinarian-checking-dog-medium-shot_23-2149143871.jpg",
+                    generalEnquirySlots
             );
 
             Offering vaccination = new Offering(
                     "Vaccination",
                     "Complete vaccination to keep your pets protected against diseases.",
                     30.00,
-                    daysOfService,
-                    hoursOfService,
-                    "https://media.istockphoto.com/id/476916383/photo/microchip-implant.jpg?s=612x612&w=0&k=20&c=Y1QxVmAMIFjuNnbyHeyI06tXx7yK1ufxmZrFchwJdSg="
+                    "https://media.istockphoto.com/id/476916383/photo/microchip-implant.jpg?s=612x612&w=0&k=20&c=Y1QxVmAMIFjuNnbyHeyI06tXx7yK1ufxmZrFchwJdSg=",
+                    vaccinationSlots
+
             );
 
             Offering surgery = new Offering(
                     "Surgery",
                     "Surgeries and surgical procedures with the best care.",
                     200.00,
-                    daysOfService,
-                    hoursOfService,
-                    "https://t4.ftcdn.net/jpg/02/74/11/19/360_F_274111966_T8GKpkMq7RpgY2z1Iju1bVrFvdg5rp2A.jpg"
+                    "https://t4.ftcdn.net/jpg/02/74/11/19/360_F_274111966_T8GKpkMq7RpgY2z1Iju1bVrFvdg5rp2A.jpg",
+                    surgerySlots
             );
 
             Offering canineHairdressing = new Offering(
                     "Canine Hairdressing",
                     "Grooming service to keep your pet clean and healthy.",
                     40.00,
-                    daysOfService,
-                    hoursOfService,
-                    "https://www.shutterstock.com/image-photo/happy-redhaired-ginger-woman-blowing-260nw-1513781225.jpg"
+                    "https://www.shutterstock.com/image-photo/happy-redhaired-ginger-woman-blowing-260nw-1513781225.jpg",
+                    canineHairdressingSlots
             );
 
             Offering deworming = new Offering(
                     "Deworming",
                     "Deworming service to eliminate internal and external parasites, keeping your pet healthy.",
                     25.00,
-                    daysOfService,
-                    hoursOfService,
-                    "https://st4.depositphotos.com/1144191/21299/i/450/depositphotos_212992002-stock-photo-reluctant-labrador-puppy-dog-getting.jpg"
+                    "https://st4.depositphotos.com/1144191/21299/i/450/depositphotos_212992002-stock-photo-reluctant-labrador-puppy-dog-getting.jpg",
+                    dewormingSlots
             );
 
             offeringRepository.save(generalEnquiry);
@@ -147,32 +170,6 @@ public class VeterinaryAppApplication {
             offeringRepository.save(surgery);
             offeringRepository.save(canineHairdressing);
             offeringRepository.save(deworming);
-
-            List<String> daysOfServiceSlots = generateNextSevenDays();
-            List<String> hoursOfServiceSlots = List.of("09:00", "10:00", "11:00","12:00", "13:00", "14:00", "15:00", "16:00", "17:00", "18:00");
-
-            List<AvailableSlots> availableSlotsList = new ArrayList<>();
-
-            for (String day : daysOfServiceSlots) {
-                LocalDate date = LocalDate.parse(day);
-                for (String hour : hoursOfServiceSlots) {
-                    availableSlotsList.add(new AvailableSlots(date, hour, generalEnquiry));
-                    availableSlotsList.add(new AvailableSlots(date, hour, vaccination));
-                    availableSlotsList.add(new AvailableSlots(date, hour, surgery));
-                    availableSlotsList.add(new AvailableSlots(date, hour, canineHairdressing));
-                    availableSlotsList.add(new AvailableSlots(date, hour, deworming));
-                }
-            }
-
-            for (AvailableSlots slot : availableSlotsList) {
-                availableSlotsRepository.save(slot);
-            }
-
-            generalEnquiry.setAvailableSlots(availableSlotsList);
-            vaccination.setAvailableSlots(availableSlotsList);
-            surgery.setAvailableSlots(availableSlotsList);
-            canineHairdressing.setAvailableSlots(availableSlotsList);
-            deworming.setAvailableSlots(availableSlotsList);
 
             // creación de Appointment
             Appointment appointment1 = new Appointment(LocalDateTime.now().plusDays(3), LocalDateTime.now(), "Please get my dog a good shower, I´ll pick him up at noon", AppointmentStatus.CONFIRMED);
@@ -234,20 +231,20 @@ public class VeterinaryAppApplication {
         };
     }
 
-    public static List<String> generateNextSevenDays() {
-        List<String> dates = new ArrayList<>();
-        LocalDate currentDate = LocalDate.now();
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-
-        int addedDays = 0;
-        while (addedDays < 7) {
-            if (!(currentDate.getDayOfWeek() == DayOfWeek.SATURDAY || currentDate.getDayOfWeek() == DayOfWeek.SUNDAY)) {
-                dates.add(currentDate.format(formatter));
-                addedDays++;
-            }
-            currentDate = currentDate.plusDays(1);
-        }
-
-        return dates;
-    }
+//    public static List<String> generateNextSevenDays() {
+//        List<String> dates = new ArrayList<>();
+//        LocalDate currentDate = LocalDate.now();
+//        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+//
+//        int addedDays = 0;
+//        while (addedDays < 7) {
+//            if (!(currentDate.getDayOfWeek() == DayOfWeek.SATURDAY || currentDate.getDayOfWeek() == DayOfWeek.SUNDAY)) {
+//                dates.add(currentDate.format(formatter));
+//                addedDays++;
+//            }
+//            currentDate = currentDate.plusDays(1);
+//        }
+//
+//        return dates;
+//    }
 }

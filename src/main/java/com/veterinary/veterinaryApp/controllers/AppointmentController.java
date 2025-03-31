@@ -36,8 +36,8 @@ public class AppointmentController {
   @Autowired
   private InvoiceService invoiceService;
 
-  @Autowired
-  private AvailableSlotsService availableSlotsService;
+//  @Autowired
+//  private AvailableSlotsService availableSlotsService;
 
   @GetMapping("/")
   public ResponseEntity<?> getAllAppointments() {
@@ -61,20 +61,10 @@ public class AppointmentController {
     System.out.println("Slot id: " + newAppointmentDTO.slotId());
     System.out.println("Slot id: " + newAppointmentDTO);
     long slotId = newAppointmentDTO.slotId();
-    AvailableSlots selectedAvailableSlot = availableSlotsService.getAvailableSlotsById(slotId);
-//    selectedAvailableSlot.setAvailable(false);
-
-    if (!selectedAvailableSlot.getAvailable()) {
-      return ResponseEntity.badRequest().body("Slot not available");
-    }
-
-    // availableSlotsService.saveAvailableSlots(selectedAvailableSlot);
 
     LocalDateTime dateTime = newAppointmentDTO.dateTime();
     LocalDateTime creationDate = LocalDateTime.now();
 
-    selectedAvailableSlot.setAvailable(false);
-    // Description para crear el turno
     String description = newAppointmentDTO.description();
 
     // status para crear el turno

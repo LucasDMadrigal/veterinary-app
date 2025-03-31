@@ -1,9 +1,13 @@
 package com.veterinary.veterinaryApp.DTOs.requestBodys;
 
+import com.veterinary.veterinaryApp.models.TimeSlot;
 import jakarta.validation.constraints.NotNull;
 
 import java.math.BigDecimal;
+import java.util.List;
 
-public record NewOfferingDTO(@NotNull String name, @NotNull String description,  double price, String image) {
+public record NewOfferingDTO(@NotNull String name, @NotNull String description, @NotNull double price,
+                             String image, List<TimeSlot> timeSlots) {
+
 
 }

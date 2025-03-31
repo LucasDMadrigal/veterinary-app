@@ -47,11 +47,10 @@ public class OfferingServiceImpl implements OfferingService {
 			default -> baseRate * 1.75;
 		};
 	}
-	
+
 	@Override
-	public void updatePrice(Offering offering, double newPrice) {
-		offering.setPrice(newPrice);
-		saveOffering(offering);
+	public void updateOffering(Offering offering) {
+		offeringRepository.save(offering);
 	}
 	
 	@Override
@@ -61,13 +60,11 @@ public class OfferingServiceImpl implements OfferingService {
 						newOfferingDTO.name(),
 						newOfferingDTO.description(),
 						newOfferingDTO.price(),
-						newOfferingDTO.image()
+						newOfferingDTO.image(),
+						newOfferingDTO.timeSlots()
 		);
 		
-		List<String> daysOfService = Utils.generateNextSevenDays();
-		List<String> hoursOfServiceSlots = Utils.hoursOfServiceSlots;
-		newOffering.setDaysOfService(daysOfService);
-		newOffering.setHoursOfService(hoursOfServiceSlots);
+		newOffering.setTimeSlots(newOfferingDTO.timeSlots());
 		saveOffering(newOffering);
 		
 		return newOffering;

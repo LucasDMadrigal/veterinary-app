@@ -16,7 +16,7 @@ public class JwtUtilService {
 
     private static final SecretKey SECRET_KEY = Jwts.SIG.HS256.key().build(); //Devuelve un token  firmado con la clave proporcionada
 
-    private static final long EXPIRATION_TOKEN = 1000 * 60 * 60;
+    private static final long EXPIRATION_TOKEN = 10000 * 60 * 60;
 
     public Claims extractAllClaims(String token){
         return Jwts.parser().verifyWith(SECRET_KEY).build().parseSignedClaims(token).getPayload();
