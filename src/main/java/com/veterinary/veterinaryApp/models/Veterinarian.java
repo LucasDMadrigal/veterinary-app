@@ -24,16 +24,19 @@ public class Veterinarian {
     
     private String image;
 
+    private Boolean active = true;
+
     @OneToMany(mappedBy = "veterinarian", cascade = CascadeType.ALL)
     private List<Appointment> appointments = new ArrayList<>();
 
-    public Veterinarian(String name, String specialty, String address, String phone, String email, String image) {
+    public Veterinarian(String name, String specialty, String address, String phone, String email, String image, Boolean active) {
         this.name = name;
         this.specialty = specialty;
         this.address = address;
         this.phone = phone;
         this.email = email;
         this.image = image;
+        this.active = active;
     }
 
     public Veterinarian() {
@@ -94,7 +97,15 @@ public class Veterinarian {
     public void setImage(String image) {
         this.image = image;
     }
-    
+
+    public Boolean getActive() {
+        return active;
+    }
+
+    public void setActive(Boolean active) {
+        this.active = active;
+    }
+
     public List<Appointment> getAppointments() {
         return appointments;
     }

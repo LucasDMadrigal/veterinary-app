@@ -24,6 +24,8 @@ public class VeterinarianDTO {
 
     private String email;
 
+    private Boolean active = true;
+
     private List<LocalDateTime> appointments = new ArrayList<>();
     
     private String image;
@@ -39,6 +41,7 @@ public class VeterinarianDTO {
         this.email = veterinarian.getEmail();
         this.appointments = veterinarian.getAppointments().stream().map(Appointment::getDateTime).toList();
         this.image = veterinarian.getImage();
+        this.active = veterinarian.getActive();
     }
 
     public Long getId() {

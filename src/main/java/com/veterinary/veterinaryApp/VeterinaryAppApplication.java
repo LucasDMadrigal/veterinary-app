@@ -181,13 +181,13 @@ public class VeterinaryAppApplication {
             appointment1.setOffering(generalEnquiry);
 
             // Creación de Veterinarios
-            Veterinarian vet1 = new Veterinarian("Brayan Ortiz", "Veterinary Dermatology", "Calle 1 # 2 - 3", "31334177", "derma@tology.com", "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQNtxj8PUZH81_htfbowSspa_NzEy_P-4fylQ&s");
+            Veterinarian vet1 = new Veterinarian("Brayan Ortiz", "Veterinary Dermatology", "Calle 1 # 2 - 3", "31334177", "derma@tology.com", "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQNtxj8PUZH81_htfbowSspa_NzEy_P-4fylQ&s", true);
 
-            Veterinarian vet2 = new Veterinarian("Jason Ordoñez", "Animal Behavior", "Calle 4 # 5 - 6", "31334177", "behavior@tology.com", "https://img.freepik.com/foto-gratis/apuesto-joven-medico-clinica-veterinaria-apuntando-dedo-arriba-sonriendo-impresionado-pie-cerca-lindo-perro-pug-negro-fondo-blanco_1258-75927.jpg");
+            Veterinarian vet2 = new Veterinarian("Jason Ordoñez", "Animal Behavior", "Calle 4 # 5 - 6", "31334177", "behavior@tology.com", "https://img.freepik.com/foto-gratis/apuesto-joven-medico-clinica-veterinaria-apuntando-dedo-arriba-sonriendo-impresionado-pie-cerca-lindo-perro-pug-negro-fondo-blanco_1258-75927.jpg",   true);
 
-            Veterinarian vet3 = new Veterinarian("Orlando Carrascal", "Veterinary Anesthesiology and Emergency Medicine", "Calle 7 # 8 - 9", "31334177", "anesthesio@logy.com", "https://img.freepik.com/fotos-premium/joven-medico-veterinario-masculino-confiado-uniforme-sentado-lugar-trabajo_236854-46856.jpg");
+            Veterinarian vet3 = new Veterinarian("Orlando Carrascal", "Veterinary Anesthesiology and Emergency Medicine", "Calle 7 # 8 - 9", "31334177", "anesthesio@logy.com", "https://img.freepik.com/fotos-premium/joven-medico-veterinario-masculino-confiado-uniforme-sentado-lugar-trabajo_236854-46856.jpg",  true);
 
-            Veterinarian vet4 = new Veterinarian("Marcela Osorio", "Intern", "Calle 10 # 11 - 12", "31334177", "intern@tology.com", "https://img.freepik.com/fotos-premium/mujer-veterinaria-uniforme-clinica-abrazando-perro-amor_255667-38056.jpg");
+            Veterinarian vet4 = new Veterinarian("Marcela Osorio", "Intern", "Calle 10 # 11 - 12", "31334177", "intern@tology.com", "https://img.freepik.com/fotos-premium/mujer-veterinaria-uniforme-clinica-abrazando-perro-amor_255667-38056.jpg", true);
 
             // Asignación de Cita a veterinario
             vet1.addAppointment(appointment1);
