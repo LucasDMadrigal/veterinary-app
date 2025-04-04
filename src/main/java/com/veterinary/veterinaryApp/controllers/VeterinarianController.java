@@ -3,6 +3,7 @@ package com.veterinary.veterinaryApp.controllers;
 import com.veterinary.veterinaryApp.DTOs.VeterinarianDTO;
 import com.veterinary.veterinaryApp.DTOs.requestBodys.DeleteVeterinarianDTO;
 import com.veterinary.veterinaryApp.DTOs.requestBodys.NewVeterinarianDTO;
+import com.veterinary.veterinaryApp.DTOs.requestBodys.updateVeterinarianDTO;
 import com.veterinary.veterinaryApp.models.Veterinarian;
 import com.veterinary.veterinaryApp.services.VeterinarianService;
 import jakarta.validation.Valid;
@@ -74,5 +75,25 @@ public class VeterinarianController {
     veterinarianService.deleteVeterinarian(veterinarian);
     
     return new ResponseEntity<>(veterinarian.getName() + " was deleted successfully", HttpStatus.OK);
+  }
+
+  @PutMapping("/update")
+  public ResponseEntity<?> updateVeterinarian(@Valid @RequestBody updateVeterinarianDTO updateVeterinarianDTO) {
+
+    Veterinarian veterinarian = veterinarianService.getVeterinarianById(updateVeterinarianDTO.id());
+    
+    if (veterinarian == null) {
+      return new ResponseEntity<>("Veterinarian not found", HttpStatus.NOT_FOUND);
+    }
+
+    veterinarian.setName(updateVeterinarianDTO.name());
+    veterinarian.setSpecialty(updateVeterinarianDTO.specialty());
+    veterinarian.setAddress(updateVeterinarianDTO.address());
+    veterinarian.setPhone(updateVeterinarianDTO.phone());
+    veterinarian.setEmail(updateVeterinarianDTO.email());
+
+    veterinarianService.saveVeterinarian(veterinarian);
+
+    return new ResponseEntity<>(veterinarian.getName() + " was updated successfully", HttpStatus.OK);
   }
 }
