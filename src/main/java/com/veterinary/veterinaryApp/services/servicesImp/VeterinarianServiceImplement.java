@@ -40,7 +40,8 @@ public class VeterinarianServiceImplement implements VeterinarianService {
 						newVeterinarianDTO.address(),
 						newVeterinarianDTO.phone(),
 						newVeterinarianDTO.email(),
-						newVeterinarianDTO.image()
+						newVeterinarianDTO.image(),
+				newVeterinarianDTO.active()
 		);
 	}
 	

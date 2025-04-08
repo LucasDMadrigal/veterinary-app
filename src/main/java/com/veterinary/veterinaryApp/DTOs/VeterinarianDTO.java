@@ -75,4 +75,8 @@ public class VeterinarianDTO {
     public String getImage() {
         return image;
     }
+
+    public Boolean getActive() {
+        return active;
+    }
 }

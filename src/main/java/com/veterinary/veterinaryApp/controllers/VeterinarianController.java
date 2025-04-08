@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api-veterinarian/veterinarians")
+@RequestMapping("/api-veterinary/veterinarian")
 public class VeterinarianController {
 
   @Autowired
@@ -73,15 +73,15 @@ public class VeterinarianController {
     }
     
     veterinarianService.deleteVeterinarian(veterinarian);
-    
-    return new ResponseEntity<>(veterinarian.getName() + " was deleted successfully", HttpStatus.OK);
+    VeterinarianDTO veterinarianDTO = new VeterinarianDTO(veterinarian);
+    return new ResponseEntity<>(veterinarianDTO, HttpStatus.OK);
   }
 
   @PutMapping("/update")
   public ResponseEntity<?> updateVeterinarian(@Valid @RequestBody updateVeterinarianDTO updateVeterinarianDTO) {
 
     Veterinarian veterinarian = veterinarianService.getVeterinarianById(updateVeterinarianDTO.id());
-    
+
     if (veterinarian == null) {
       return new ResponseEntity<>("Veterinarian not found", HttpStatus.NOT_FOUND);
     }
@@ -91,9 +91,12 @@ public class VeterinarianController {
     veterinarian.setAddress(updateVeterinarianDTO.address());
     veterinarian.setPhone(updateVeterinarianDTO.phone());
     veterinarian.setEmail(updateVeterinarianDTO.email());
+    veterinarian.setImage(updateVeterinarianDTO.image());
+    veterinarian.setActive(updateVeterinarianDTO.active());
 
     veterinarianService.saveVeterinarian(veterinarian);
 
-    return new ResponseEntity<>(veterinarian.getName() + " was updated successfully", HttpStatus.OK);
+    VeterinarianDTO veterinarianDTO = new VeterinarianDTO(veterinarian);
+    return new ResponseEntity<>(veterinarianDTO, HttpStatus.OK);
   }
 }
