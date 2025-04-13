@@ -129,6 +129,7 @@ public class VeterinaryAppApplication {
                     "General consultation for check-ups and medical examinations of your pets.",
                     50.00,
                     "https://img.freepik.com/free-photo/veterinarian-checking-dog-medium-shot_23-2149143871.jpg",
+                    true,
                     generalEnquirySlots
             );
 
@@ -137,6 +138,7 @@ public class VeterinaryAppApplication {
                     "Complete vaccination to keep your pets protected against diseases.",
                     30.00,
                     "https://media.istockphoto.com/id/476916383/photo/microchip-implant.jpg?s=612x612&w=0&k=20&c=Y1QxVmAMIFjuNnbyHeyI06tXx7yK1ufxmZrFchwJdSg=",
+                    true,
                     vaccinationSlots
 
             );
@@ -146,6 +148,7 @@ public class VeterinaryAppApplication {
                     "Surgeries and surgical procedures with the best care.",
                     200.00,
                     "https://t4.ftcdn.net/jpg/02/74/11/19/360_F_274111966_T8GKpkMq7RpgY2z1Iju1bVrFvdg5rp2A.jpg",
+                    true,
                     surgerySlots
             );
 
@@ -154,6 +157,7 @@ public class VeterinaryAppApplication {
                     "Grooming service to keep your pet clean and healthy.",
                     40.00,
                     "https://www.shutterstock.com/image-photo/happy-redhaired-ginger-woman-blowing-260nw-1513781225.jpg",
+                    false,
                     canineHairdressingSlots
             );
 
@@ -162,6 +166,7 @@ public class VeterinaryAppApplication {
                     "Deworming service to eliminate internal and external parasites, keeping your pet healthy.",
                     25.00,
                     "https://st4.depositphotos.com/1144191/21299/i/450/depositphotos_212992002-stock-photo-reluctant-labrador-puppy-dog-getting.jpg",
+                    true,
                     dewormingSlots
             );
 

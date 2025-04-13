@@ -86,6 +86,7 @@ public class OfferingController {
 			existingService.setDescription(updateOffering.description());
 			existingService.setName(updateOffering.name());
 			existingService.setImage(updateOffering.image());
+			existingService.setActive(updateOffering.active());
 
 			offeringService.updateOffering(existingService);
 

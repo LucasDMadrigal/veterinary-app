@@ -61,6 +61,7 @@ public class OfferingServiceImpl implements OfferingService {
 						newOfferingDTO.description(),
 						newOfferingDTO.price(),
 						newOfferingDTO.image(),
+						newOfferingDTO.active(),
 						newOfferingDTO.timeSlots()
 		);
 		

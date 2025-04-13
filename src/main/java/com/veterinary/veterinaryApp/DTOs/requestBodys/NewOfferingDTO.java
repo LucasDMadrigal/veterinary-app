@@ -7,7 +7,7 @@ import java.math.BigDecimal;
 import java.util.List;
 
 public record NewOfferingDTO(@NotNull String name, @NotNull String description, @NotNull double price,
-                             String image, List<TimeSlot> timeSlots) {
+                             String image, Boolean active, List<TimeSlot> timeSlots) {
 
 
 }

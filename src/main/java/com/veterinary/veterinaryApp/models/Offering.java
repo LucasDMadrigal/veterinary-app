@@ -20,6 +20,8 @@ public class Offering {
     
     private String image;
 
+    private Boolean active = true;
+
     @OneToMany(mappedBy = "offering")
     private List<Appointment> appointments = new ArrayList<>(); // contiene los bloques horarios reservados
 //
@@ -45,11 +47,12 @@ public class Offering {
 //    }
 
 
-    public Offering(String name, String description, double price, String image, List<TimeSlot> timeSlots) {
+    public Offering(String name, String description, double price, String image, Boolean active, List<TimeSlot> timeSlots) {
         this.name = name;
         this.description = description;
         this.price = price;
         this.image = image;
+        this.active = active;
         this.timeSlots = timeSlots;
     }
 
@@ -114,5 +117,13 @@ public class Offering {
 
     public void setTimeSlots(List<TimeSlot> timeSlots) {
         this.timeSlots = timeSlots;
+    }
+
+    public Boolean getActive() {
+        return active;
+    }
+
+    public void setActive(Boolean active) {
+        this.active = active;
     }
 }

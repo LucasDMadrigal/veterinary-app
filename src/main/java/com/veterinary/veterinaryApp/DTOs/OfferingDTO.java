@@ -20,6 +20,8 @@ public class OfferingDTO {
 	private double price;
 	
 	private String image;
+
+	private Boolean active;
 	
 	private List<LocalDateTime> appointments; // Lista de citas de la oferta
 	
@@ -37,6 +39,7 @@ public class OfferingDTO {
 				.map(timeSlot -> new TimeSlotDTO(timeSlot))
 				.toList();
 		this.image = offering.getImage();
+		this.active = offering.getActive();
 	}
 	
 	public long getId() {
@@ -69,5 +72,9 @@ public class OfferingDTO {
 	
 	public String getImage() {
 		return image;
+	}
+
+	public Boolean getActive() {
+		return active;
 	}
 }
