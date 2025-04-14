@@ -21,4 +21,8 @@ public class TimeSlotDTO {
     public String getHour() {
         return hour;
     }
+
+    public Boolean getAvailable() {
+        return available;
+    }
 }

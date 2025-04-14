@@ -41,4 +41,13 @@ public class TimeSlot {
         public void setAvailable(Boolean available) {
             this.available = available;
         }
+
+        @Override
+        public String toString() {
+            return "TimeSlot{" +
+                    "day=" + day +
+                    ", hour='" + hour + '\'' +
+                    ", available=" + available +
+                    '}';
+        }
     }

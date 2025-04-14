@@ -73,6 +73,7 @@ public class OfferingController {
 	
 	@PutMapping("/update")
 	public ResponseEntity<?> updateOffering(@Valid @RequestBody UpdateOfferingDTO updateOffering) {
+
 		try {
 			long offeringId = updateOffering.id();
 			Offering existingService = offeringService.getOfferingById(offeringId);
