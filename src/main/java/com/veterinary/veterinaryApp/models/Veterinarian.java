@@ -6,11 +6,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-public class Veterinarian {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+@DiscriminatorValue("Veterinarian")
+public class Veterinarian extends User {
 
     private String name;
 
@@ -20,8 +17,6 @@ public class Veterinarian {
 
     private String phone;
 
-    private String email;
-    
     private String image;
 
     private Boolean active = true;
@@ -29,12 +24,12 @@ public class Veterinarian {
     @OneToMany(mappedBy = "veterinarian", cascade = CascadeType.ALL)
     private List<Appointment> appointments = new ArrayList<>();
 
-    public Veterinarian(String name, String specialty, String address, String phone, String email, String image, Boolean active) {
+    public Veterinarian(String name, String specialty, String address, String phone, String email, String password, String image, Boolean active) {
+        super(email, password);
         this.name = name;
         this.specialty = specialty;
         this.address = address;
         this.phone = phone;
-        this.email = email;
         this.image = image;
         this.active = active;
     }
@@ -42,14 +37,6 @@ public class Veterinarian {
     public Veterinarian() {
     }
     
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
     public String getName() {
         return name;
     }
@@ -82,14 +69,6 @@ public class Veterinarian {
         this.phone = phone;
     }
 
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-    
     public String getImage() {
         return image;
     }
