@@ -43,12 +43,13 @@ public class JwtUtilService {
                 .signWith(SECRET_KEY)
                 .compact();
     }
-
-    public String generateToken(UserDetails userDetails){
-        Map<String, Object> claims = new HashMap<>();
-        String rol = userDetails.getAuthorities().iterator().next().getAuthority();
-        claims.put("rol", rol);
-        return createToken(claims, userDetails.getUsername());
-    }
+    
+        public String generateToken(UserDetails userDetails){
+            Map<String, Object> claims = new HashMap<>();
+            String rol = userDetails.getAuthorities().iterator().next().getAuthority();
+            System.out.println("rol " + rol);
+            claims.put("rol", rol);
+            return createToken(claims, userDetails.getUsername());
+        }
 
 }
