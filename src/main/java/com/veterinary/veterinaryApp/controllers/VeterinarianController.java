@@ -34,8 +34,11 @@ public class VeterinarianController {
   @PostMapping("/new")
   public ResponseEntity<?> createVeterinarian(@RequestBody NewVeterinarianDTO newVeterinarianDTO) {
 
-    if (newVeterinarianDTO.name().isBlank()) {
-      return new ResponseEntity<>("phone must not be empty ", HttpStatus.BAD_REQUEST);
+    if (newVeterinarianDTO.firstName().isBlank()) {
+      return new ResponseEntity<>("first name must not be empty ", HttpStatus.BAD_REQUEST);
+    }
+    if (newVeterinarianDTO.lastName().isBlank()) {
+      return new ResponseEntity<>("last name must not be empty ", HttpStatus.BAD_REQUEST);
     }
 
     if (newVeterinarianDTO.specialty().isBlank()) {
@@ -86,7 +89,8 @@ public class VeterinarianController {
       return new ResponseEntity<>("Veterinarian not found", HttpStatus.NOT_FOUND);
     }
 
-    veterinarian.setName(updateVeterinarianDTO.name());
+    veterinarian.setFirstName(updateVeterinarianDTO.firstName());
+    veterinarian.setLastName(updateVeterinarianDTO.lastName());
     veterinarian.setSpecialty(updateVeterinarianDTO.specialty());
     veterinarian.setAddress(updateVeterinarianDTO.address());
     veterinarian.setPhone(updateVeterinarianDTO.phone());

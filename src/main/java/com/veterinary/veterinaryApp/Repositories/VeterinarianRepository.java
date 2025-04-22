@@ -8,5 +8,6 @@ import org.springframework.stereotype.Repository;
 public interface VeterinarianRepository extends JpaRepository<Veterinarian, Long> {
 
   Veterinarian findById(long id);
+  Veterinarian findByEmail(String email);
 
 }

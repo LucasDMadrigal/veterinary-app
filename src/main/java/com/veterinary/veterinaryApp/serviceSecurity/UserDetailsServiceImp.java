@@ -1,9 +1,12 @@
 package com.veterinary.veterinaryApp.serviceSecurity;
 
 import com.veterinary.veterinaryApp.Repositories.ClientRepository;
+import com.veterinary.veterinaryApp.Repositories.UserRepository;
+import com.veterinary.veterinaryApp.models.Admin;
 import com.veterinary.veterinaryApp.models.Client;
+import com.veterinary.veterinaryApp.models.User;
+import com.veterinary.veterinaryApp.models.Veterinarian;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -13,28 +16,33 @@ import org.springframework.stereotype.Service;
 public class UserDetailsServiceImp implements UserDetailsService {
 	
 	@Autowired
-	private ClientRepository clientRepository;
-	
+private UserRepository userRepository;
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 		
-		Client client = clientRepository.findByEmail(username);
-		
-		if (client == null){
+		User user = userRepository.findByEmail(username);
+		String role;
+
+
+
+		if (user == null){
 			throw new UsernameNotFoundException(username);
 		}
-		
-		String rol = "";
-		if (client.isAdmin()){
-			rol = "ADMIN";
+
+		if (user instanceof Admin) {
+			role = "ADMIN";
+		} else if (user instanceof Veterinarian) {
+			role = "VETERINARIAN";
+		} else if (user instanceof Client) {
+			role = "CLIENT";
 		} else {
-			rol = "CLIENT";
+			throw new UsernameNotFoundException("Unknown user role");
 		}
-		
-		return User
-						.withUsername(username) //email
-						.password(client.getPassword())
-						.roles(rol)
-						.build();
+//
+		return org.springframework.security.core.userdetails.User
+				.withUsername(user.getEmail())
+				.password(user.getPassword())
+				.roles(role)
+				.build();
 	}
 }

@@ -23,9 +23,15 @@ public class VeterinarianServiceImplement implements VeterinarianService {
 	
 	@Override
 	public Veterinarian getVeterinarianById(Long id) {
+
 		return veterinarianRepository.findById(id).orElse(null);
 	}
-	
+
+	@Override
+	public Veterinarian getVeterinarianByEmail(String email) {
+		return veterinarianRepository.findByEmail(email);
+	}
+
 	@Override
 	public List<VeterinarianDTO> getAllVeterinariansDTO() {
 		return getAllVeterinarians().stream().map(VeterinarianDTO::new).toList();
@@ -35,11 +41,13 @@ public class VeterinarianServiceImplement implements VeterinarianService {
 	public Veterinarian createVeterinarian(NewVeterinarianDTO newVeterinarianDTO) {
 		
 		return new Veterinarian(
-						newVeterinarianDTO.name(),
+						newVeterinarianDTO.firstName(),
+						newVeterinarianDTO.lastName(),
 						newVeterinarianDTO.specialty(),
 						newVeterinarianDTO.address(),
 						newVeterinarianDTO.phone(),
 						newVeterinarianDTO.email(),
+						newVeterinarianDTO.password(),
 						newVeterinarianDTO.image(),
 				newVeterinarianDTO.active()
 		);

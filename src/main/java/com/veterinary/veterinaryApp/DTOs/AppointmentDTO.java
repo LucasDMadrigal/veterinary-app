@@ -24,7 +24,8 @@ public class AppointmentDTO {
         this.notes = appointment.getDescription();
         this.appointmentStatus = appointment.getAppointmentStatus();
         this.creationDatetime = appointment.getCreationDatetime();
-        this.veterinarian = appointment.getVeterinarian().getName();
+        this.veterinarian = appointment.getVeterinarian().getLastName();
+
         this.clientName = appointment.getClient().getFirstName() + " " + appointment.getClient().getLastName();
         this.petName = appointment.getPet().getPetName();
         this.offeringName = appointment.getOffering().getName();

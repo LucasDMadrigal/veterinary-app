@@ -35,8 +35,14 @@ public class Account {
     }
 
     // Getters y Setters
+
+
     public Long getId() {
         return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public Client getClient() {
@@ -71,9 +77,6 @@ public class Account {
         return balancePaid;
     }
 
-    public void setId(Long id) {
-        this.id = id;
-    }
 
     public double getBalance() {
         return balance;

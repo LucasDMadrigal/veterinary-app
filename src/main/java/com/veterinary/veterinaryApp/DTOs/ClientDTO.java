@@ -12,13 +12,13 @@ public class ClientDTO {
 
   private Long id;
 
-  private String clientName;
+  private String firstName;
+
+  private String lastName;
 
   private String email;
 
   private int phone;
-
-  private boolean admin;
 
   private AccountDTO account;
 
@@ -33,10 +33,10 @@ public class ClientDTO {
     List<Pet> petsAux = client.getPets();
 
     this.id = client.getId();
-    this.clientName = client.getFirstName() + " " + client.getLastName();
+    this.firstName = client.getFirstName();
+    this.lastName = client.getLastName();
     this.email = client.getEmail();
     this.phone = client.getPhone();
-    this.admin = client.isAdmin();
     this.account = new AccountDTO(client.getAccount());
     this.pets = petsAux.stream().map(PetDTO::new).toList();
     this.confirmedAppointments = appointmentsAux.stream().map(AppointmentDTO::new).toList();
@@ -46,8 +46,12 @@ public class ClientDTO {
     return id;
   }
 
-  public String getClientName() {
-    return clientName;
+  public String getFirstName() {
+    return firstName;
+  }
+
+  public String getLastName() {
+    return lastName;
   }
 
   public String getEmail() {
@@ -60,10 +64,6 @@ public class ClientDTO {
 
   public int getPhone() {
     return phone;
-  }
-
-  public boolean isAdmin() {
-    return admin;
   }
 
   public List<PetDTO> getPets() {

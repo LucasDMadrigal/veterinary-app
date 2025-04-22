@@ -2,6 +2,7 @@ package com.veterinary.veterinaryApp;
 
 import com.veterinary.veterinaryApp.Repositories.*;
 import com.veterinary.veterinaryApp.models.*;
+import com.veterinary.veterinaryApp.services.AdminService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -34,12 +35,16 @@ public class VeterinaryAppApplication {
             ClientRepository clientRepository, AccountRepository accountRepository,
             PetRepository petRepository, VeterinarianRepository veterinarianRepository,
             OfferingRepository offeringRepository, AppointmentRepository appointmentRepository,
-            InvoiceRepository invoiceRepository
+            InvoiceRepository invoiceRepository, AdminService adminService
     ) {
         return (args) -> {
 //
             // creacion de usuarios
-            Client userAdmin = new Client("Jelena", "Palavecino", "jelena@vetadmin.com", passwordEncoder.encode("abc123"), 31334177);
+            Admin userAdmin = new Admin("Jelena",
+                    "Palavecino",
+                    "jelena@vetadmin.com",
+                    passwordEncoder.encode("abc123")
+            );
 
             Client lucas = new Client("Lucas", "Madrigal", "lucas@mail.com", passwordEncoder.encode("123"), 51258927);
 
@@ -47,7 +52,7 @@ public class VeterinaryAppApplication {
 
             Client leonel = new Client("Leonel", "Borjas", "leonel@borjas.com", passwordEncoder.encode("123"), 51258927);
 
-            clientRepository.save(userAdmin);
+            adminService.saveAdmin(userAdmin);
             clientRepository.save(lucas);
             clientRepository.save(pedro);
             clientRepository.save(leonel);
@@ -58,7 +63,7 @@ public class VeterinaryAppApplication {
             Account account3 = new Account(2000, fiveDigits());
             Account account4 = new Account(2500, fiveDigits());
 
-            account1.setClient(userAdmin);
+//            account1.setClient(userAdmin);
             account2.setClient(lucas);
             account3.setClient(pedro);
             account4.setClient(leonel);
@@ -76,12 +81,9 @@ public class VeterinaryAppApplication {
             Pet pet5 = new Pet("Tomate", "6 meses", "Perro", "Pastor Aleman", AnimalSize.LARGE, "healthy dog", "https://www.tiendanimal.es/articulos/wp-content/uploads/2017/11/Como-educar-y-entrenar-a-un-pastor-aleman.jpg");
             Pet pet6 = new Pet("Firulais", "15 años", "Perro", "Golden Retriever", AnimalSize.BIGGER, "very old dog", "https://www.clarin.com/2020/06/24/VXEcQ3tkG_720x0__1.jpg");
 
-            userAdmin.addPet(pet1);
             lucas.addPet(pet2);
             pedro.addPet(pet3);
             leonel.addPet(pet4);
-            userAdmin.addPet(pet5);
-            userAdmin.addPet(pet6);
 
             petRepository.save(pet1);
             petRepository.save(pet2);
@@ -186,21 +188,30 @@ public class VeterinaryAppApplication {
             appointment1.setOffering(generalEnquiry);
 
             // Creación de Veterinarios
-            Veterinarian vet1 = new Veterinarian("Brayan Ortiz", "Veterinary Dermatology", "Calle 1 # 2 - 3", "31334177", "derma@tology.com", "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQNtxj8PUZH81_htfbowSspa_NzEy_P-4fylQ&s", true);
+//            Veterinarian vet1 = new Veterinarian("Brayan Ortiz", "Veterinary Dermatology", "Calle 1 # 2 - 3", "31334177", "derma@tology.com", "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQNtxj8PUZH81_htfbowSspa_NzEy_P-4fylQ&s", true);
+//
+//            Veterinarian vet2 = new Veterinarian("Jason Ordoñez", "Animal Behavior", "Calle 4 # 5 - 6", "31334177", "behavior@tology.com", "https://img.freepik.com/foto-gratis/apuesto-joven-medico-clinica-veterinaria-apuntando-dedo-arriba-sonriendo-impresionado-pie-cerca-lindo-perro-pug-negro-fondo-blanco_1258-75927.jpg",   true);
+//
+//            Veterinarian vet3 = new Veterinarian("Orlando Carrascal", "Veterinary Anesthesiology and Emergency Medicine", "Calle 7 # 8 - 9", "31334177", "anesthesio@logy.com", "https://img.freepik.com/fotos-premium/joven-medico-veterinario-masculino-confiado-uniforme-sentado-lugar-trabajo_236854-46856.jpg",  true);
+//
+//            Veterinarian vet4 = new Veterinarian("Marcela Osorio", "Intern", "Calle 10 # 11 - 12", "31334177", "intern@tology.com", "https://img.freepik.com/fotos-premium/mujer-veterinaria-uniforme-clinica-abrazando-perro-amor_255667-38056.jpg", true);
 
-            Veterinarian vet2 = new Veterinarian("Jason Ordoñez", "Animal Behavior", "Calle 4 # 5 - 6", "31334177", "behavior@tology.com", "https://img.freepik.com/foto-gratis/apuesto-joven-medico-clinica-veterinaria-apuntando-dedo-arriba-sonriendo-impresionado-pie-cerca-lindo-perro-pug-negro-fondo-blanco_1258-75927.jpg",   true);
-
-            Veterinarian vet3 = new Veterinarian("Orlando Carrascal", "Veterinary Anesthesiology and Emergency Medicine", "Calle 7 # 8 - 9", "31334177", "anesthesio@logy.com", "https://img.freepik.com/fotos-premium/joven-medico-veterinario-masculino-confiado-uniforme-sentado-lugar-trabajo_236854-46856.jpg",  true);
-
-            Veterinarian vet4 = new Veterinarian("Marcela Osorio", "Intern", "Calle 10 # 11 - 12", "31334177", "intern@tology.com", "https://img.freepik.com/fotos-premium/mujer-veterinaria-uniforme-clinica-abrazando-perro-amor_255667-38056.jpg", true);
-
+            Veterinarian vet1 = new Veterinarian("Brayan",
+                    "Ortiz",
+                    "Veterinary Dermatology",
+                    "Calle 1 # 2 - 3",
+                    "31334177",
+                    "derma@tology.com",
+                    passwordEncoder.encode("abc123"),
+                    "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQNtxj8PUZH81_htfbowSspa_NzEy_P-4fylQ&s",
+                    true);
             // Asignación de Cita a veterinario
             vet1.addAppointment(appointment1);
 
             veterinarianRepository.save(vet1);
-            veterinarianRepository.save(vet2);
-            veterinarianRepository.save(vet3);
-            veterinarianRepository.save(vet4);
+//            veterinarianRepository.save(vet2);
+//            veterinarianRepository.save(vet3);
+//            veterinarianRepository.save(vet4);
 
             // Creación de Invoice
             Invoice invoice1 = new Invoice(LocalDateTime.now(), 1000, InvoiceStatus.CHARGED);
@@ -222,7 +233,7 @@ public class VeterinaryAppApplication {
             pet1.addAppointment(appointment1);
 
             // Asignar cita al veterinario
-            vet2.addAppointment(appointment1);
+//            vet2.addAppointment(appointment1);
 
             appointmentRepository.save(appointment1);
 

@@ -1,16 +1,19 @@
 package com.veterinary.veterinaryApp.controllers;
 
+import com.veterinary.veterinaryApp.DTOs.AdminDTO;
 import com.veterinary.veterinaryApp.DTOs.ClientDTO;
+import com.veterinary.veterinaryApp.DTOs.VeterinarianDTO;
 import com.veterinary.veterinaryApp.DTOs.requestBodys.LoginDTO;
 import com.veterinary.veterinaryApp.DTOs.requestBodys.RegisterDTO;
-import com.veterinary.veterinaryApp.Repositories.AccountRepository;
-import com.veterinary.veterinaryApp.Repositories.ClientRepository;
+import com.veterinary.veterinaryApp.Repositories.VeterinarianRepository;
 import com.veterinary.veterinaryApp.models.Account;
 import com.veterinary.veterinaryApp.models.Client;
 import com.veterinary.veterinaryApp.serviceSecurity.JwtUtilService;
 import com.veterinary.veterinaryApp.serviceSecurity.UserDetailsServiceImp;
 import com.veterinary.veterinaryApp.services.AccountService;
+import com.veterinary.veterinaryApp.services.AdminService;
 import com.veterinary.veterinaryApp.services.ClientService;
+import com.veterinary.veterinaryApp.services.VeterinarianService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -43,6 +46,12 @@ public class AuthController {
     private ClientService clientService;
 
     @Autowired
+    private AdminService adminService;
+
+    @Autowired
+    private VeterinarianService veterinarianService;
+
+    @Autowired
     private AccountService accountService;
 
     @PostMapping("/login")
@@ -57,11 +66,31 @@ public class AuthController {
         }
     }
 
+//    @GetMapping("/current")
+//    public ResponseEntity<?> getCurrentClient (Authentication authentication) {
+//        Client client = clientService.getClientByEmail(authentication.getName());
+//        return ResponseEntity.ok(new ClientDTO(client));
+//    }
+
     @GetMapping("/current")
-    public ResponseEntity<?> getCurrentClient (Authentication authentication) {
-        Client client = clientService.getClientByEmail(authentication.getName());
-        return ResponseEntity.ok(new ClientDTO(client));
+    public ResponseEntity<?> getCurrentUser(Authentication authentication) {
+        String email = authentication.getName();
+
+        // Intentamos buscarlo como Client
+        var client = clientService.getClientByEmail(email);
+        if (client != null) return ResponseEntity.ok(new ClientDTO(client));
+
+        // Intentamos buscarlo como Veterinarian
+        var vet = veterinarianService.getVeterinarianByEmail(email);
+        if (vet != null) return ResponseEntity.ok(new VeterinarianDTO(vet));
+
+        // Intentamos buscarlo como Admin
+        var admin = adminService.getAdminByEmail(email);
+        if (admin != null) return ResponseEntity.ok(new AdminDTO(admin));
+
+        return new ResponseEntity<>("User not found", HttpStatus.NOT_FOUND);
     }
+
 
     @PostMapping("/register")
     public ResponseEntity<?> register (@RequestBody RegisterDTO registerDTO){

@@ -9,10 +9,6 @@ import java.util.List;
 @DiscriminatorValue("client")
 public class Client extends User {
 
-  private String firstName;
-
-  private String lastName;
-
   int phone;
 
   @OneToOne(mappedBy = "client", cascade = CascadeType.ALL)
@@ -29,28 +25,11 @@ public class Client extends User {
   }
 
   public Client(String firstName, String lastName, String email, String password, int phone) {
-    super(email, password);
-    this.firstName = firstName;
-    this.lastName = lastName;
+    super(email, password, firstName, lastName);
     this.phone = phone;
   }
 
   // Métodos accesores
-  public String getFirstName() {
-    return firstName;
-  }
-
-  public void setFirstName(String firstName) {
-    this.firstName = firstName;
-  }
-
-  public String getLastName() {
-    return lastName;
-  }
-
-  public void setLastName(String lastName) {
-    this.lastName = lastName;
-  }
 
   public int getPhone() {
     return phone;
@@ -95,9 +74,9 @@ public class Client extends User {
     pets.add(pet);
   }
 
-  @Override
-  public String toString() {
-    return "User [id=" + ", firstName=" + firstName + ", lastName=" + lastName + ", email="
-        + ", password=" + ", phone=" + phone + ", admin=" + "]";
-  }
+//  @Override
+//  public String toString() {
+//    return "User [id=" + ", firstName=" + firstName + ", lastName=" + lastName + ", email="
+//        + ", password=" + ", phone=" + phone + ", admin=" + "]";
+//  }
 }

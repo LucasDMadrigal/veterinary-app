@@ -3,12 +3,15 @@ package com.veterinary.veterinaryApp.models;
 import jakarta.persistence.*;
 
 @Entity
+@Table(name = "users")
 @Inheritance(strategy = InheritanceType.JOINED)
 @DiscriminatorColumn(name = "user_type")
 public abstract class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    private String firstName;
+    private String lastName;
     @Column(unique = true, nullable = false)
     private String email;
     @Column(nullable = false)
@@ -17,7 +20,9 @@ public abstract class User {
     public User() {
     }
 
-    public User(String email, String password) {
+    public User(String email, String password, String firstName, String lastName) {
+        this.firstName = firstName;
+        this.lastName = lastName;
         this.email = email;
         this.password = password;
     }
@@ -36,6 +41,22 @@ public abstract class User {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
     }
 
     public String getPassword() {

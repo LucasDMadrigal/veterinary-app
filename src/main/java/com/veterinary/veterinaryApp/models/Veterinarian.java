@@ -9,8 +9,6 @@ import java.util.List;
 @DiscriminatorValue("Veterinarian")
 public class Veterinarian extends User {
 
-    private String name;
-
     private String specialty;
 
     private String address;
@@ -24,9 +22,8 @@ public class Veterinarian extends User {
     @OneToMany(mappedBy = "veterinarian", cascade = CascadeType.ALL)
     private List<Appointment> appointments = new ArrayList<>();
 
-    public Veterinarian(String name, String specialty, String address, String phone, String email, String password, String image, Boolean active) {
-        super(email, password);
-        this.name = name;
+    public Veterinarian(String firstName, String lastName, String specialty, String address, String phone, String email, String password, String image, Boolean active) {
+        super(email, password, firstName, lastName);
         this.specialty = specialty;
         this.address = address;
         this.phone = phone;
@@ -35,14 +32,6 @@ public class Veterinarian extends User {
     }
 
     public Veterinarian() {
-    }
-    
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
     }
 
     public String getSpecialty() {

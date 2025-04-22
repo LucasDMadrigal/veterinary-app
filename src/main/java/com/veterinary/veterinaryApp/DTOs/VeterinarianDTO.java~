@@ -32,6 +32,8 @@ public class VeterinarianDTO {
     
     private String image;
 
+    public VeterinarianDTO() {}
+
     public VeterinarianDTO(Veterinarian veterinarian) {
         this.id = veterinarian.getId();
         this.firstName = veterinarian.getFirstName();
