@@ -8,7 +8,6 @@ public class TimeSlot {
     private String hour;
     private Boolean available;
 
-
     public TimeSlot() {
     }
 

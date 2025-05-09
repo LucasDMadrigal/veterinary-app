@@ -1,0 +1,11 @@
+package com.veterinary.veterinaryApp.services;
+
+import com.veterinary.veterinaryApp.DTOs.requestBodys.TimeSlotGenerationRequestDTO;
+import com.veterinary.veterinaryApp.models.TimeSlot;
+
+import java.util.List;
+
+public interface TimeSlotGeneratorService {
+    public List<TimeSlot> generateSlots(TimeSlotGenerationRequestDTO timeSlotGenerationRequestDTO);
+    
+}

@@ -58,8 +58,6 @@ public class AppointmentController {
     }
 
     // fechas para crear el turno
-    System.out.println("Slot id: " + newAppointmentDTO.slotId());
-    System.out.println("Slot id: " + newAppointmentDTO);
     long slotId = newAppointmentDTO.slotId();
 
     LocalDateTime dateTime = newAppointmentDTO.dateTime();

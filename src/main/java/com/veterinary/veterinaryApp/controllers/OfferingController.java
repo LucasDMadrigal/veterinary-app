@@ -2,10 +2,12 @@ package com.veterinary.veterinaryApp.controllers;
 
 import com.veterinary.veterinaryApp.DTOs.OfferingDTO;
 import com.veterinary.veterinaryApp.DTOs.requestBodys.NewOfferingDTO;
+import com.veterinary.veterinaryApp.DTOs.requestBodys.TimeSlotGenerationRequestDTO;
 import com.veterinary.veterinaryApp.DTOs.requestBodys.UpdateOfferingDTO;
 import com.veterinary.veterinaryApp.models.Offering;
 import com.veterinary.veterinaryApp.services.ClientService;
 import com.veterinary.veterinaryApp.services.OfferingService;
+import com.veterinary.veterinaryApp.services.TimeSlotGeneratorService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -21,6 +23,9 @@ public class OfferingController {
 	
 	@Autowired
 	OfferingService offeringService;
+
+	@Autowired
+	TimeSlotGeneratorService timeSlotGeneratorService;
 	
 	@Autowired
 	ClientService clientService;
@@ -97,4 +102,22 @@ public class OfferingController {
 			return new ResponseEntity<>("Error updating Offering: " + e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
+
+	@PostMapping("/{id}/generate-slots")
+	public ResponseEntity<?> generateSlots(@PathVariable Long id, @RequestBody TimeSlotGenerationRequestDTO timeSlotGenerationRequestDto) {
+		try {
+			// Verificar coherencia
+			if (timeSlotGenerationRequestDto.offeringId() == null || !timeSlotGenerationRequestDto.offeringId().equals(id)) {
+				return new ResponseEntity<>("Service not found", HttpStatus.NOT_FOUND);
+			}
+
+			// Ejecutar la lógica
+			timeSlotGeneratorService.generateSlots(timeSlotGenerationRequestDto);
+
+			return ResponseEntity.ok("Slots generados correctamente para el offering ID: " + id);
+		} catch (Exception e) {
+			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error al generar slots: " + e.getMessage());
+		}
+	}
+
 }

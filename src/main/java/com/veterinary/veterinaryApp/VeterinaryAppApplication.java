@@ -46,7 +46,7 @@ public class VeterinaryAppApplication {
                     passwordEncoder.encode("abc123")
             );
 
-            Client lucas = new Client("Lucas", "Madrigal", "lucas@mail.com", passwordEncoder.encode("123"), 51258927);
+            Client lucas = new Client("Daniel", "Madrigal", "lucas@mail.com", passwordEncoder.encode("123"), 51258927);
 
             Client pedro = new Client("Pedro", "Sanabria", "pedro@sanabria.com", passwordEncoder.encode("123"), 51258927);
 
@@ -91,10 +91,6 @@ public class VeterinaryAppApplication {
             petRepository.save(pet4);
             petRepository.save(pet5);
             petRepository.save(pet6);
-
-            // Creación de Servicios
-//            List<String> daysOfService = Arrays.asList("Monday", "Tuesday", "Wednesday", "Thursday", "Friday");
-//            List<String> hoursOfService = Arrays.asList("09:00-12:00", "13:00-17:00");
 
             List<TimeSlot> generalEnquirySlots = List.of(
                     new TimeSlot(Days.MONDAY, "09:00 AM"),
